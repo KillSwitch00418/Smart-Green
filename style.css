@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: lightgreen;
+}
+
+.main-header {
+    text-align: center;
+}
+
+.main-nav {
+    text-align: center;
+}
