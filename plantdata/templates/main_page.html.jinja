@@ -1,0 +1,99 @@
+<head>
+    <title>
+        The Plant Factory
+    </title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+{% extends "chome_base.html.jinja" %}
+{% block subtitle %} - Logged In {% endblock %}
+{% block main %}
+<div class="w3-cell-row">
+<div class="w3-card-4 w3-panel w3-cell w3-cell-middle" style="width:95%">
+    <header class="w3-panel w3-light-blue w3">
+        <h3>Welcome, {{ user }}</h3>
+
+        <div class="w3-center">
+            <h1>Dashboard</h1>
+            <h3>Temperature</h3>
+            <h5>Average:  {{ averages["temperature"][0] }} F Maximum: {{averages["temperature"][1]}} F Minimum: {{averages["temperature"][2]}} F</h5>
+            <h3>Humidity</h3>
+            <h5>Average:  {{ averages["humidity"][0] }} % Maximum: {{averages["humidity"][1]}} % Minimum: {{averages["humidity"][2]}} %</h5>
+            <h3>Yield</h3>
+            <h5>Average:  {{ averages["yield"][0] }} lbs Maximum: {{averages["yield"][1]}} lbs Minimum: {{averages["yield"][2]}} lbs</h5>
+   
+            <h3>Nutrient Concentration</h3>
+            <h5>Average:  {{ averages["nutrients"][0] }} ppm Maximum: {{averages["nutrients"][1]}} ppm Minimum: {{averages["nutrients"][2]}} ppm </h5>
+        
+            <h3>CO2</h3>
+            <h5>Average:  {{ averages["co2"][0] }} ppm Maximum: {{averages["co2"][1]}} ppm Minimum: {{averages["co2"][2]}} ppm</h5>
+        
+            <h3>Soil Moisture</h3>
+            <h5>Average:  {{ averages["moisture"][0] }} % Maximum: {{averages["moisture"][1]}} % Minimum: {{averages["moisture"][2]}} %</h5>
+        
+            <h3>Light Intensity</h3>
+            <h5>Average:  {{ averages["light"][0] }} mol m-2 s-1 Maximum: {{averages["light"][1]}} mol m-2 s-1 Minimum: {{averages["light"][2]}} mol m-2 s-1 </h5>
+        </div>
+    </header>
+
+<div class="w3-container w3-white">
+    <div class="w3-center">
+            <div>Ideal temperature: 70-74F</div>
+        <form class="w3-panel w3-left-align" style="width:50%" action="/settemp" method="post">
+            <p>
+            <label>Enter Desired Temperature:</label>
+            <input class="w3-input" type="text" id="temp" name="temp"></p>
+            <p>
+            <input class="w3-button w3-green w3-center" type="submit" value="Set Temperature"> </p>
+        </form>
+            <br>
+            <br>
+
+            <script>
+                function cool() {
+                    alert("Green house cooling has been initiated.");
+                }
+                function heat() {
+                    alert("Green house heating has been initiated.");
+                }
+                
+            </script>
+    </div> 
+</div>
+
+    <div class="w3-responsive">
+    <table class="w3-table w3-striped w3-center">
+        <tr class="w3-green">
+            <th class="w3-center">Recorded Time</th>
+            <th class="w3-center">Yield / lbs </th>
+            <th class="w3-center">Temperature / F</th>
+            <th class="w3-center">Humidity / %</th>
+            <th class="w3-center">Nutrient Concentration / ppm</th>
+            <th class="w3-center">Carbon Dioxide / ppm </th>
+            <th class="w3-center">Soil Moisture  / %</th>
+            <th class="w3-center">Light / mol m-2 s-1 </th>
+        </tr>
+        {% for key, value in plantdata.items() %}
+        <tr>
+            <td class="w3-center">{{ key|e }}</td>
+            <td class="w3-center">{{ value[0]|e }}</td>
+            <td class="w3-center">{{ value[1]|e }}</td>
+            <td class="w3-center">{{ value[2]|e }}</td>
+            <td class="w3-center">{{ value[3]|e }}</td>
+            <td class="w3-center">{{ value[4]|e }}</td>
+            <td class="w3-center">{{ value[5]|e }}</td>
+            <td class="w3-center">{{ value[6]|e }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+    <footer class="w3-panel w3-pale-blue w3-center">
+    <form class="w3-panel w3-center" action="/logout" method="post">
+        <input class="w3-button w3-teal" type="submit" value="Logout">
+    </form>
+    </footer>
+  </div>
+</div>
+
+{% endblock %}
